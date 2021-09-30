@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-06</title>
+    <style>
+        .test {
+            background-color: crimson;
+            width: 200px;
+            height: 100px;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .test h1 {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test">
+        <h1>Rubrik</h1>
+        <p>Lorem ipsum dolor sit amet.</p>
+    </div>
+
+    <button>Töm boxen</button>
+
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+        $("button").click(function (e) { 
+            e.preventDefault();
+            $("div").empty()
+        });
+    </script>
+</body>
+</html>

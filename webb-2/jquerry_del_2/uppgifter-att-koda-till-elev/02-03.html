@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>02-03</title>
+    <style>
+        .test {
+            color: red;
+        }
+    </style>
+</head>
+<body>    
+    <p>Det hårdkodade stycket</p>
+    <button>Toggla!</button>
+
+    <script src="jquery-3.6.0.min.js"></script>
+    <Script>
+        $("button").click(function() {
+            $("p").toggleClass("test");
+        });
+    </Script>
+</body>
+</html>

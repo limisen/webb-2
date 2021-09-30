@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-05</title>
+    <style>
+        .test {
+            background-color: crimson;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <h1>Lorem, ipsum.</h1>
+
+        <ol>
+            <li>Ett</li>
+            <li>Två</li>
+            <li>Tre
+                <ul>
+                    <li>Tre:1</li>
+                    <li>Tre:2</li>
+                </ul>
+            </li>
+            <li>Fyra</li>
+            <li>Fem</li>
+        </ol>
+    </div>
+
+    <button>Ta bort!</button>
+
+    <script src="jquery-3.6.0.min.js"></script>
+    <Script>
+        $("button").click(function (e) { 
+            e.preventDefault();
+            $("li").first().remove()
+        });
+    </Script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03-02</title>
+    <style>
+        .test {
+            background-color: crimson;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Lorem, ipsum.</h1>
+
+    <p>Lorem ipsum dolor sit amet.</p>
+    <p>Corporis aliquid aut obcaecati nemo!</p>
+    <p>Veniam est ipsum molestiae debitis!</p>
+    <p>Modi minima eligendi animi aspernatur!</p>
+    <p>Dignissimos accusantium veniam blanditiis porro?</p>
+
+    <script src="jquery-3.6.0.min.js"></script>
+    <script>
+    $(function () {
+        $('h1').siblings().addClass('test')
+    });
+    </script>
+</body>
+
+</html>
