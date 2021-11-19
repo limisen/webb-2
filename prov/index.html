@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prov - 2 spelare spel</title>
+</head>
+<style>
+    body {
+        display: grid;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        place-items: center;
+        align-items: center;
+    }
+
+    h1 {
+        font-size: 9vh;
+        display: grid;
+        justify-content: center;
+        margin-top: 1vh;
+        margin-bottom: 0;
+        font-weight: lighter;
+    }
+
+    #title{
+        margin: 0 0 0 0;
+        display: grid
+    }
+
+    h3 {
+        margin-top: 2px;
+        margin-bottom: 0;
+        margin-left: 5px;
+        font-size: 5vh;
+    }
+
+    button {
+        border-radius: 5px;
+        font-size: 3vh;
+        display: grid;
+        place-items: center;
+    }
+
+    .game_over {
+        width: 100vw;
+        height: 100vh;
+        font-size: 20vh;
+        color: whitesmoke;
+        background-color: rgba(128, 128, 128, 0.4);
+        place-items: center;
+        position: absolute;
+        z-index: 1;
+        display: grid;
+    }
+
+    #players {
+        display: inline-block;
+        justify-content: center;
+        border-radius: 2.5px;
+        width: 15vw;
+        height: 40vh;
+    }
+
+    .dice-throw {
+        display: grid;
+        justify-content: center;
+        font-size: 4vh;
+        margin-bottom: 1vh;
+    }
+
+    .player-1 {
+        background-color: rgb(116, 183, 254);
+        margin-right: 1vw;
+        display: grid;
+    }
+
+    .dice-1 {
+        
+    }
+
+    .dice-2 {
+
+    }
+
+    .player-2 {
+        background-color: rgb(0, 182, 146);
+        margin-left: 1vw;
+    }
+</style>
+
+<body>
+    <div class="game"></div>
+
+    <script src="../jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var die_1_value_1 = Math.floor(Math.random() * 6) + 1;
+            var die_1_value_2 = Math.floor(Math.random() * 6) + 1;
+            var die_1_sum = die_1_value_1 + die_1_value_2;
+
+            var die_2_value_1 = Math.floor(Math.random() * 6) + 1;
+            var die_2_value_2 = Math.floor(Math.random() * 6) + 1;
+            var die_2_sum = die_2_value_1 + die_2_value_2;
+
+            function die_throw_1() {
+                die_1_value_1 = Math.floor(Math.random() * 6) + 1;
+                die_1_value_2 = Math.floor(Math.random() * 6) + 1;
+                die_1_sum = die_1_value_1 + die_1_value_2;
+                return [die_1_value_1, die_1_value_2, die_1_sum];
+            }
+            function die_throw_2() {
+                die_2_value_1 = Math.floor(Math.random() * 6) + 1;
+                die_2_value_2 = Math.floor(Math.random() * 6) + 1;
+                die_2_sum = die_2_value_1 + die_2_value_2;
+                return [die_2_value_1, die_2_value_2, die_2_sum];
+            }
+
+            var p1_score = 0;
+            var p2_score = 0;
+
+            $("body").prepend("<h1 id='title'> Högst summa får poäng! <br>försten till 5!");
+
+            $(".game").append(
+                '<div id="players" class="player-1">' +
+                '<h3>Spelare 1</h3>' +
+                '<h1 id="player-1">' + p1_score + '</h1>' +
+                '<div class="dice-throw" id="result-1">' + "Resultat: " + die_1_value_1 + ' + ' + die_1_value_2 + '= ' + die_1_sum + '</div>' +
+                '<button class="dice-1" type="button">kasta tärningarna!</button>' + '</div>' +
+
+                '<div id="players" class="player-2">' +
+                '<h3>Spelare 2</h3>' +
+                '<h1 id="player-2">' + p2_score + '</h1>' +
+                '<div class="dice-throw" id="result-2">' + "Resultat: " + die_2_value_1 + ' + ' + die_2_value_2 + '= ' + die_2_sum + '</div>' +
+                '<button class="dice-2 type="button"">kasta tärningarna!</button>' + '</div>'
+            );
+            $("body").prepend(
+                '<div class="game_over"></div>');
+            $(".game_over").hide();
+            $(".dice-2").hide();
+            // $(".dice-1").hide();
+
+            $(".dice-1").click(function (e) {
+                e.preventDefault();
+                var x = die_throw_1()
+                $("#result-1").text(die_1_value_1 + ', ' + die_1_value_2 + '= ' + die_1_sum);
+                console.log("dice-1, thrown", x[0], x[1], "sum:", x[2])
+            });
+            $(".dice-2").click(function (e) {
+                e.preventDefault();
+                var x = die_throw_2()
+                $("#result-2").text(die_2_value_1 + ', ' + die_2_value_2 + '= ' + die_2_sum);
+                console.log("dice-2, thrown", x[0], x[1], "sum:", x[2])
+            });
+
+            $("button").click(function (e) {
+                e.preventDefault();
+                //console.log("click");
+                if (die_1_sum > die_2_sum) {
+                    p1_score++;
+                    console.log("player-1 scored!", p1_score);
+                    $("#player-1").text(p1_score);
+                } else if (die_1_sum < die_2_sum) {
+                    p2_score++;
+                    console.log("player-2 scored!", p2_score);
+                    $("#player-2").text(p2_score);
+                } 
+                if (p1_score >= 5) {
+                    console.log("score exceedes 5");
+                    $(".game_over").show();
+                    $(".game_over").html(
+                        "<p>Game Over! <br> Spelare 1 Vinnare! </p>");
+                } else if (p2_score >= 5) {
+                    console.log("score exceedes 5");
+                    $(".game_over").show();
+                    $(".game_over").html(
+                        "<p>Game Over! <br> Spelare 2 Vinnare! </p>");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
