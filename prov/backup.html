@@ -16,11 +16,10 @@
         padding: 0;
         place-items: center;
         align-items: center;
-        aspect-ratio: 3;
     }
 
     h1 {
-        font-size: 5rem;
+        font-size: 9vh;
         display: grid;
         justify-content: center;
         margin-top: 1vh;
@@ -30,14 +29,14 @@
 
     #title {
         margin: 0 0 0 0;
-        font-size: 10vmin;
+        display: grid
     }
 
     h3 {
         margin-top: 2px;
         margin-bottom: 0;
         margin-left: 5px;
-        font-size: 2.2rem;
+        font-size: 5vh;
     }
 
     p {
@@ -47,28 +46,26 @@
     button {
         display: grid;
         place-items: center;
-        padding: .5vh .5vh 0 .5vh;
+        padding: 1vh 1vh 0 1vh;
         border-radius: 5px;
         justify-self: center;
-        aspect-ratio: 2;
+        aspect-ratio: 3;
     }
     .restart {
         padding: 1vh 1vh 0 1vh;
         aspect-ratio: 2;
-        width: 12vmin;
-        height: 8vmin;
-        font-size: 20%;
+        width: 14vw;
+        height: 15vh;
+        font-size: 6vh;
         font-weight: bold;
     }
 
     .game_over {
         width: 100vw;
         height: 100vh;
-        font-size: 12vmin;
-        text-shadow: 2px 2px #000;
+        font-size: 20vh;
         color: whitesmoke;
         background-color: rgba(128, 128, 128, 0.4);
-        backdrop-filter: blur(2px);
         place-items: center;
         position: absolute;
         z-index: 1;
@@ -81,19 +78,17 @@
 
     #players {
         border: 1px solid #000;
-        width: 1.3em;
+        width: 17vw;
         font-size: 40vh;
         border-radius: 2.5px;
-        aspect-ratio: 2;
 
         display: grid;
         grid-template-rows: auto 1fr auto auto;
     }
 
     .dice-throw {
-        display: inline-flex;
+        display: grid;
         justify-content: center;
-        justify-content: space-evenly;
         font-size: 4vh;
         margin-bottom: 1vh
     }
@@ -116,17 +111,7 @@
 
     <script src="jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () { 
-            var die_head = [
-                0,
-                '<img src="dice_heads/head_I.png" alt="die_head_I">',
-                '<img src="dice_heads/head_II.png" alt="die_head_II">',
-                '<img src="dice_heads/head_III.png" alt="die_head_III">',
-                '<img src="dice_heads/head_IV.png" alt="die_head_IV">',
-                '<img src="dice_heads/head_V.png" alt="die_head_V">',
-                '<img src="dice_heads/head_VI.png" alt="die_head_VI">',
-            ];
-
+        $(document).ready(function () {
             var die_1_value_1 = Math.floor(Math.random() * 6) + 1;
             var die_1_value_2 = Math.floor(Math.random() * 6) + 1;
             var die_1_sum = die_1_value_1 + die_1_value_2;
@@ -154,13 +139,13 @@
                 '<div id="players" class="player-1">' +
                 '<h3>Spelare 1</h3>' +
                 '<h1 id="player-1">' + p1_score + '</h1>' +
-                '<div class="dice-throw" id="result-1">' + die_head[die_1_value_1] + die_head[die_1_value_2] + '</div>' +
+                '<div class="dice-throw" id="result-1">' + "Resultat: " + die_1_value_1 + ' + ' + die_1_value_2 + '= ' + die_1_sum + '</div>' +
                 '<button class="dice-1" type="button">kasta tärningarna!</button>' + '</div>' +
 
                 '<div id="players" class="player-2">' +
                 '<h3>Spelare 2</h3>' +
                 '<h1 id="player-2">' + p2_score + '</h1>' +
-                '<div class="dice-throw" id="result-2">' + die_head[die_2_value_1] + die_head[die_2_value_2] + '</div>' +
+                '<div class="dice-throw" id="result-2">' + "Resultat: " + die_2_value_1 + ' + ' + die_2_value_2 + '= ' + die_2_sum + '</div>' +
                 '<button class="dice-2 type="button"">kasta tärningarna!</button>' + '</div>'
             );
             $("body").prepend('<div class="game_over"></div>');
@@ -170,7 +155,7 @@
             $(".dice-1").click(function (e) {
                 e.preventDefault();
                 var x = die_throw_1()
-                $("#result-1").html(die_head[die_1_value_1] + die_head[die_1_value_2]);
+                $("#result-1").text(die_1_value_1 + ', ' + die_1_value_2 + '= ' + die_1_sum);
                 console.log("dice-1, thrown", x[0], x[1], "sum:", x[2]);
                 $('.dice-1').prop("disabled", true);
                 $(".dice-2").prop("disabled", false);
@@ -178,7 +163,7 @@
             $(".dice-2").click(function (e) {
                 e.preventDefault();
                 var x = die_throw_2()
-                $("#result-2").html(die_head[die_2_value_1] + die_head[die_2_value_2]);
+                $("#result-2").text(die_2_value_1 + ', ' + die_2_value_2 + '= ' + die_2_sum);
                 console.log("dice-2, thrown", x[0], x[1], "sum:", x[2]);
                 $(".dice-1").prop("disabled", false);
                 $(".dice-2").prop("disabled", true);
@@ -199,16 +184,12 @@
                     console.log("score exceedes or is equal to 5");
                     $(".game_over").show();
                     $(".game_over").html(
-                        "<p>Game Over! <br> Spelare 1 Vinnare! <br> <br>  <button class='restart'>Restart!</button> </p>");
-                    $('.dice-1').prop("disabled", true);
-                    $(".dice-2").prop("disabled", true);
+                        "<p>Game Over! <br> Spelare 1 Vinnare! <br> <button class='restart'>Restart!</button> </p>");
                 } else if (p2_score >= 5) {
                     console.log("score exceedes or is equal to 5");
                     $(".game_over").show();
                     $(".game_over").html(
-                        "<p>Game Over! <br> Spelare 2 Vinnare! <br> <br>  <button class='restart'>Restart!</button> </p>");
-                    $('.dice-1').prop("disabled", true);
-                    $(".dice-2").prop("disabled", true);
+                        "<p>Game Over! <br> Spelare 2 Vinnare! <br> <button class='restart'>Restart!</button> </p>");
                 }
                 $(".restart").click(function (e) {
                     e.preventDefault();
