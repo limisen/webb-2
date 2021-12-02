@@ -221,7 +221,7 @@
                         $("#player-2").text(p2_score);
                     }, 1200);
                 }
-                if (p1_score >= 1) {
+                if (p1_score >= 5) {
                     console.log("score exceedes or is equal to 5");
                     $('.dice-1').prop("disabled", true);
                     $(".dice-2").prop("disabled", true);
@@ -229,7 +229,7 @@
                         $(".game_over").show();
                         $(".game_over").prepend("<p>Game Over! <br> Spelare 1 Vinnare!</p>");
                     }, 1300);
-                } else if (p2_score >= 1) {
+                } else if (p2_score >= 5) {
                     console.log("score exceedes or is equal to 5");
                     $('.dice-1').prop("disabled", true);
                     $(".dice-2").prop("disabled", true);
