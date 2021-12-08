@@ -55,6 +55,32 @@
             justify-self: center;
             aspect-ratio: 2;
         }
+        button:hover {
+            cursor: pointer;
+            box-shadow: 0, 0, 10px red;
+        }
+
+        .bet {
+            height: 40vh;
+            width: 50vw;
+            display: flex;
+            background-color: rgb(10, 148, 81);
+            background-image: url();
+            justify-content: space-around;
+            align-items: flex-end;
+        }
+
+        .p1_bet_amnt {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
+        
+        .p2_bet_amnt {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+        }
 
         .restart {
             padding: 1vh 1vh 1vh 1vh;
@@ -106,14 +132,14 @@
         }
 
         .player-1 {
-            background-color: rgb(116, 183, 254);
+            background-color: rgb(0, 200, 100);
             margin-right: 1vw;
             display: grid;
 
         }
 
         .player-2 {
-            background-color: rgb(0, 182, 146);
+            background-color: rgb(13, 209, 209);
             margin-left: 1vw;
         }
     </style>
@@ -127,15 +153,15 @@
         $(document).ready(function () {
             var die_head = [
                 0,
-                '<img src="dice_heads/head_I.png" alt="die_head_I">',
-                '<img src="dice_heads/head_II.png" alt="die_head_II">',
-                '<img src="dice_heads/head_III.png" alt="die_head_III">',
-                '<img src="dice_heads/head_IV.png" alt="die_head_IV">',
-                '<img src="dice_heads/head_V.png" alt="die_head_V">',
-                '<img src="dice_heads/head_VI.png" alt="die_head_VI">',
+                '<img src="pictures/dice_heads/head_I.png" alt="die_head_I">',
+                '<img src="pictures/dice_heads/head_II.png" alt="die_head_II">',
+                '<img src="pictures/dice_heads/head_III.png" alt="die_head_III">',
+                '<img src="pictures/dice_heads/head_IV.png" alt="die_head_IV">',
+                '<img src="pictures/dice_heads/head_V.png" alt="die_head_V">',
+                '<img src="pictures/dice_heads/head_VI.png" alt="die_head_VI">',
             ];
-            var dice_anim = '<img src="dice_heads/dice_animation.gif">'
-            var dice_anim_2 = '<img src="dice_heads/dice_animation_2.gif">'
+            var dice_anim = '<img src="pictures/dice_heads/dice_animation.gif">'
+            var dice_anim_2 = '<img src="pictures/dice_heads/dice_animation_2.gif">'
 
             localStorage.setItem(
                 "player-1", 0,
@@ -164,7 +190,8 @@
             }
             var p1_score = 0;
             var p2_score = 0;
-            $("body").prepend("<h1 id='title'> Högst summa får poäng! <br>försten till 5!");
+            $("body").prepend("<h1 id='title'> försten till 5!");
+            $("body").prepend("<h1 id='title'> Högst summa får poäng!");
             $(".game").append(
                 '<div id="players" class="player-1">' +
                 '<h3>Spelare 1</h3>' +
@@ -176,10 +203,21 @@
                 '<h3>Spelare 2</h3>' +
                 '<h1 id="player-2">' + p2_score + '</h1>' +
                 '<div class="dice-throw" id="result-2">' + die_head[die_2_value_1] + die_head[die_2_value_2] + '</div>' +
-                '<button class="dice-2 type="button"">kasta tärningarna!</button>' + '</div>'
+                '<button class="dice-2" type="button">kasta tärningarna!</button>' + '</div>'
             );
+            $("body").append("<div class='bet'></div>")
+            $(".bet").append("<button class='p1_bet_amnt' type='submit'>Bet!</button>")
+            $(".bet").append("<button class='p2_bet_amnt' type='submit'>Bet!</button>")
             $("body").prepend('<div class="game_over"><button class="restart">Restart!</button></div>');
             $(".game_over").hide();
+
+            $(".p1_bet_amnt").click(function (){
+                console.log("Increase bet amount for p1");
+            })
+            
+            $(".p2_bet_amnt").click(function (){
+                console.log("Increase bet amount for p2");
+            })
 
             $(".dice-1").click(function (e) {
                 e.preventDefault();
@@ -203,11 +241,11 @@
                     $(".dice-1").prop("disabled", false);
                 }, 1000);
             });
-            $("button").click(function (e) {
+            $(".dice-1").add(".dice-2").click(function (e) {
                 e.preventDefault();
                 //console.log("click");
-                $('.dice-1').prop("disabled", true);
-                $('.dice-2').prop("disabled", true);
+                // $('.dice-1').prop("disabled", true);
+                // $('.dice-2').prop("disabled", true);
                 if (die_1_sum > die_2_sum) {
                     p1_score++;
                     setTimeout(function () {
