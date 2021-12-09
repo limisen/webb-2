@@ -55,6 +55,7 @@
             justify-self: center;
             aspect-ratio: 2;
         }
+
         button:hover {
             cursor: pointer;
             box-shadow: 0, 0, 10px red;
@@ -65,9 +66,14 @@
             width: 50vw;
             display: flex;
             background-color: rgb(10, 148, 81);
-            background-image: url();
             justify-content: space-around;
             align-items: flex-end;
+        }
+
+        .chips {
+            display: flex;
+            transform: scale(0.3);
+            position: absolute;
         }
 
         .p1_bet_amnt {
@@ -75,7 +81,7 @@
             height: 60px;
             border-radius: 100%;
         }
-        
+
         .p2_bet_amnt {
             width: 60px;
             height: 60px;
@@ -147,12 +153,11 @@
 
 <body>
     <div class="game"></div>
-
     <script src="jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
             var die_head = [
-                0,
+                null,
                 '<img src="pictures/dice_heads/head_I.png" alt="die_head_I">',
                 '<img src="pictures/dice_heads/head_II.png" alt="die_head_II">',
                 '<img src="pictures/dice_heads/head_III.png" alt="die_head_III">',
@@ -162,11 +167,6 @@
             ];
             var dice_anim = '<img src="pictures/dice_heads/dice_animation.gif">'
             var dice_anim_2 = '<img src="pictures/dice_heads/dice_animation_2.gif">'
-
-            localStorage.setItem(
-                "player-1", 0,
-                "player-2", 0,
-            );
 
             var die_1_value_1 = Math.floor(Math.random() * 6) + 1;
             var die_1_value_2 = Math.floor(Math.random() * 6) + 1;
@@ -205,19 +205,46 @@
                 '<div class="dice-throw" id="result-2">' + die_head[die_2_value_1] + die_head[die_2_value_2] + '</div>' +
                 '<button class="dice-2" type="button">kasta tärningarna!</button>' + '</div>'
             );
-            $("body").append("<div class='bet'></div>")
+            $("body").append("<div class='bet'></div>");
             $(".bet").append("<button class='p1_bet_amnt' type='submit'>Bet!</button>")
             $(".bet").append("<button class='p2_bet_amnt' type='submit'>Bet!</button>")
             $("body").prepend('<div class="game_over"><button class="restart">Restart!</button></div>');
             $(".game_over").hide();
 
-            $(".p1_bet_amnt").click(function (){
-                console.log("Increase bet amount for p1");
-            })
-            
-            $(".p2_bet_amnt").click(function (){
-                console.log("Increase bet amount for p2");
-            })
+            var chips = [
+                null,
+                '<img class="chips" id="1" src="pictures/chips/marker-1.png">',
+                null,
+                null,
+                null,
+                '<img class="chips" id="5" src="pictures/chips/marker-5.png">',
+                '<img class="chips" id="10" src="pictures/chips/marker-10.png">',
+                '<img class="chips" id="25" src="pictures/chips/marker-25.png">',
+                '<img class="chips" id="50" src="pictures/chips/marker-50.png">',
+                '<img class="chips" id="100" src="pictures/chips/marker-100_yellow.png">',
+                '<img class="chips" id="100" src="pictures/chips/marker-100_red.png">',
+                '<img class="chips" id="100" src="pictures/chips/marker-100_gray.png">',
+            ];
+
+            localStorage.setItem(
+                "player-1", 0,
+                "player-2", 0,
+            );
+            var p1_chip_val = 1;
+            var p2_chip_val = 1;
+                $(".p1_bet_amnt").click(function () {
+                    // console.log("Increase bet amount for p1");
+                    $(".bet").append(chips[p1_chip_val]);
+                    p1_chip_val +=1;
+                    console.log(p1_chip_val);
+                })
+    
+                $(".p2_bet_amnt").click(function () {
+                    // console.log("Increase bet amount for p2");
+                    $(".bet").append(chips[p2_chip_val]);
+                    p2_chip_val +=1;
+                    console.log(p2_chip_val);
+                })
 
             $(".dice-1").click(function (e) {
                 e.preventDefault();
