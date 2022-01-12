@@ -35,10 +35,20 @@
         }
 
         h3 {
-            margin-top: 2px;
+            margin-top: 5.5px;
             margin-bottom: 0;
-            margin-left: 5px;
+            margin-left: 7.5px;
             font-size: 2.2rem;
+        }
+
+        .p1_top {
+            display: inline-flex;
+            justify-content: space-between;
+        }
+
+        .p2_top {
+            display: inline-flex;
+            justify-content: space-between;
         }
 
         p {
@@ -62,30 +72,52 @@
         }
 
         .bet {
-            height: 40vh;
+            height: 15vh;
             width: 50vw;
-            display: flex;
+            display: inline-flex;
             background-color: rgb(10, 148, 81);
-            justify-content: space-around;
+            justify-content: space-between;
             align-items: flex-end;
         }
 
         .chips {
             display: flex;
-            transform: scale(0.3);
+            transform: scale(0.34);
             position: absolute;
         }
 
         .p1_bet_amnt {
-            width: 60px;
-            height: 60px;
-            border-radius: 100%;
+            display: inline-flex;
+            height: 100px;
+            width: 100px;
+            /* background-color: gray; */
+            justify-content: center;
+            align-items: center;
         }
 
         .p2_bet_amnt {
+            display: inline-flex;
+            height: 100px;
+            width: 100px;
+            /* background-color: gray; */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .p1_increase_bet {
             width: 60px;
             height: 60px;
             border-radius: 100%;
+            display: inline-grid;
+            margin: 5px 6px 0 0;
+        }
+
+        .p2_increase_bet {
+            width: 60px;
+            height: 60px;
+            border-radius: 100%;
+            display: inline-grid;
+            margin: 5px 6px 0 0;
         }
 
         .restart {
@@ -127,6 +159,7 @@
 
             display: grid;
             grid-template-rows: auto 1fr auto auto;
+            grid-template-rows: auto 1fr auto auto;
         }
 
         .dice-throw {
@@ -140,8 +173,6 @@
         .player-1 {
             background-color: rgb(0, 200, 100);
             margin-right: 1vw;
-            display: grid;
-
         }
 
         .player-2 {
@@ -194,29 +225,35 @@
             $("body").prepend("<h1 id='title'> Högst summa får poäng!");
             $(".game").append(
                 '<div id="players" class="player-1">' +
-                '<h3>Spelare 1</h3>' +
+                '<div class="p1_top">' +
+                '<h3 id="p1">Spelare 1</h3>' +
+                '</div>' +
                 '<h1 id="player-1">' + p1_score + '</h1>' +
                 '<div class="dice-throw" id="result-1">' + die_head[die_1_value_1] + die_head[die_1_value_2] + '</div>' +
                 '<button class="dice-1" type="button">kasta tärningarna!</button>' + '</div>' +
 
                 '<div id="players" class="player-2">' +
-                '<h3>Spelare 2</h3>' +
+                '<div class="p2_top">' +
+                '<h3 id="p2">Spelare 2</h3>' +
+                '</div>' +
                 '<h1 id="player-2">' + p2_score + '</h1>' +
                 '<div class="dice-throw" id="result-2">' + die_head[die_2_value_1] + die_head[die_2_value_2] + '</div>' +
                 '<button class="dice-2" type="button">kasta tärningarna!</button>' + '</div>'
             );
             $("body").append("<div class='bet'></div>");
-            $(".bet").append("<button class='p1_bet_amnt' type='submit'>Bet!</button>")
-            $(".bet").append("<button class='p2_bet_amnt' type='submit'>Bet!</button>")
+            $(".bet").append("<div class='p1_bet_amnt'></div>");
+            $(".p1_top").append("<button class='p1_increase_bet' type='submit'>Bet!</button>");
+            $(".p2_top").append("<button class='p2_increase_bet' type='submit'>Bet!</button>");
+            $(".bet").append("<div class='p2_bet_amnt'></div>")
             $("body").prepend('<div class="game_over"><button class="restart">Restart!</button></div>');
             $(".game_over").hide();
 
             var chips = [
                 null,
                 '<img class="chips" id="1" src="pictures/chips/marker-1.png">',
-                null,
-                null,
-                null,
+                '<img class="chips" id="1" src="pictures/chips/marker-1.png">',
+                '<img class="chips" id="1" src="pictures/chips/marker-1.png">',
+                '<img class="chips" id="1" src="pictures/chips/marker-1.png">',
                 '<img class="chips" id="5" src="pictures/chips/marker-5.png">',
                 '<img class="chips" id="10" src="pictures/chips/marker-10.png">',
                 '<img class="chips" id="25" src="pictures/chips/marker-25.png">',
@@ -232,19 +269,19 @@
             );
             var p1_chip_val = 1;
             var p2_chip_val = 1;
-                $(".p1_bet_amnt").click(function () {
-                    // console.log("Increase bet amount for p1");
-                    $(".bet").append(chips[p1_chip_val]);
-                    p1_chip_val +=1;
-                    console.log(p1_chip_val);
-                })
-    
-                $(".p2_bet_amnt").click(function () {
-                    // console.log("Increase bet amount for p2");
-                    $(".bet").append(chips[p2_chip_val]);
-                    p2_chip_val +=1;
-                    console.log(p2_chip_val);
-                })
+            $(".p1_increase_bet").click(function () {
+                // conincreasetlog("Increase bet amount for p1");
+                $(".p1_bet_amnt").append(chips[p1_chip_val]);
+                p1_chip_val += 1;
+                console.log(p1_chip_val);
+            })
+
+            $(".p2_increase_bet").click(function () {
+                // console.log("Increase bet amount for p2");
+                $(".p2_bet_amnt").append(chips[p2_chip_val]);
+                p2_chip_val += 1;
+                console.log(p2_chip_val);
+            })
 
             $(".dice-1").click(function (e) {
                 e.preventDefault();
@@ -256,6 +293,11 @@
                     console.log("dice-1, thrown", x[0], x[1], "sum:", x[2]);
                     $(".dice-2").prop("disabled", false);
                 }, 1000);
+                p1_chip_val = 1;
+                p2_chip_val = 1;
+                setTimeout(function () {
+                $(".chips").remove()
+                },300);
             });
             $(".dice-2").click(function (e) {
                 e.preventDefault();
@@ -267,12 +309,17 @@
                     console.log("dice-2, thrown", x[0], x[1], "sum:", x[2]);
                     $(".dice-1").prop("disabled", false);
                 }, 1000);
+                p1_chip_val = 1;
+                p2_chip_val = 1;
+                setTimeout(function () {
+                $(".chips").remove()
+                },300);
             });
             $(".dice-1").add(".dice-2").click(function (e) {
                 e.preventDefault();
                 //console.log("click");
-                // $('.dice-1').prop("disabled", true);
-                // $('.dice-2').prop("disabled", true);
+                $('.dice-1').prop("disabled", true);
+                $('.dice-2').prop("disabled", true);
                 if (die_1_sum > die_2_sum) {
                     p1_score++;
                     setTimeout(function () {
